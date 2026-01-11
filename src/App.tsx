@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { RefreshCw, Menu, X, ThumbsUp, ThumbsDown } from 'lucide-react';
 
 const MakanApaHariNi = () => {
   const [selectedItem, setSelectedItem] = useState<string | null>(null);
@@ -11,93 +10,21 @@ const MakanApaHariNi = () => {
   const [recentlyShown, setRecentlyShown] = useState<string[]>([]);
 
   const foodData: Record<string, string[]> = {
-    tomyam: [
-      "Tom Yam Campur",
-      "Nasi Goreng Paprik",
-      "Kuey Teow Goreng",
-      "Mee Goreng Basah",
-      "Ayam Masak Merah",
-      "Sup Tulang",
-      "Nasi Goreng Tom Yam",
-      "Daging Black Pepper",
-      "Ikan Tiga Rasa",
-      "Sotong Celup Tepung"
-    ],
-    
-    mamak: [
-      "Roti Canai",
-      "Roti Tissue",
-      "Nasi Kandar + Ayam Goreng",
-      "Maggi Goreng",
-      "Murtabak Daging",
-      "Tosai",
-      "Roti Bom",
-      "Nasi Lemak Ayam Goreng",
-      "Mee Goreng Mamak",
-      "Teh Tarik + Roti Bakar",
-      "Nasi Kandar + Kari Ayam",
-      "Indomie Goreng Telur"
-    ],
-
-    random: [
-      "Nasi Ayam Penyet",
-      "Nasi Lemak Rendang",
-      "Nasi Kerabu",
-      "Laksa Johor",
-      "Nasi Briyani",
-      "Chicken Chop",
-      "Fish and Chips",
-      "Spaghetti Carbonara",
-      "Nasi Arab Mandy",
-      "Burger Ramly Special",
-      "Ayam Geprek",
-      "Nasi Kukus Ayam Berempah"
-    ]
+    tomyam: ["Tom Yam Campur", "Nasi Goreng Paprik", "Kuey Teow Goreng", "Mee Goreng Basah", "Ayam Masak Merah", "Sup Tulang", "Nasi Goreng Tom Yam", "Daging Black Pepper", "Ikan Tiga Rasa", "Sotong Celup Tepung"],
+    mamak: ["Roti Canai", "Roti Tissue", "Nasi Kandar + Ayam Goreng", "Maggi Goreng", "Murtabak Daging", "Tosai", "Roti Bom", "Nasi Lemak Ayam Goreng", "Mee Goreng Mamak", "Teh Tarik + Roti Bakar", "Nasi Kandar + Kari Ayam", "Indomie Goreng Telur"],
+    random: ["Nasi Ayam Penyet", "Nasi Lemak Rendang", "Nasi Kerabu", "Laksa Johor", "Nasi Briyani", "Chicken Chop", "Fish and Chips", "Spaghetti Carbonara", "Nasi Arab Mandy", "Burger Ramly Special", "Ayam Geprek", "Nasi Kukus Ayam Berempah"]
   };
 
-  const drinkData: string[] = [
-    "Teh Tarik",
-    "Teh O Ais Limau",
-    "Kopi O",
-    "Milo Ais",
-    "Sirap Bandung",
-    "Air Limau Ais",
-    "Teh C Peng",
-    "Nescafe Ais",
-    "Milo Tabur",
-    "Horlicks Ais",
-    "Cham",
-    "Kopi Jantan",
-    "Teh Halia",
-    "Ribena Ais"
-  ];
+  const drinkData: string[] = ["Teh Tarik", "Teh O Ais Limau", "Kopi O", "Milo Ais", "Sirap Bandung", "Air Limau Ais", "Teh C Peng", "Nescafe Ais", "Milo Tabur", "Horlicks Ais", "Cham", "Kopi Jantan", "Teh Halia", "Ribena Ais"];
 
-  const placeData: string[] = [
-    "Kedai Mamak",
-    "Kedai Tomyam",
-    "KFC",
-    "McDonald's",
-    "Pelita Nasi Kandar",
-    "OldTown White Coffee",
-    "Secret Recipe",
-    "The Chicken Rice Shop",
-    "Nando's",
-    "Sushi King",
-    "Pizza Hut",
-    "myBurgerLab",
-    "Boat Noodle",
-    "Texas Chicken",
-    "Marrybrown"
-  ];
+  const placeData: string[] = ["Kedai Mamak", "Kedai Tomyam", "KFC", "McDonald's", "Pelita Nasi Kandar", "OldTown White Coffee", "Secret Recipe", "The Chicken Rice Shop", "Nando's", "Sushi King", "Pizza Hut", "myBurgerLab", "Boat Noodle", "Texas Chicken", "Marrybrown"];
 
   const getRandomFakeNumber = (): number => {
     const numbers = [234, 411, 456, 512, 578, 649, 666, 678, 723, 801];
     return numbers[Math.floor(Math.random() * numbers.length)];
   };
 
-  const getAllFood = (): string[] => {
-    return [...foodData.tomyam, ...foodData.mamak, ...foodData.random];
-  };
+  const getAllFood = (): string[] => [...foodData.tomyam, ...foodData.mamak, ...foodData.random];
 
   const getWeightedRandom = (items: string[]): string => {
     const availableItems = items.filter(item => !recentlyShown.includes(item));
@@ -107,7 +34,6 @@ const MakanApaHariNi = () => {
 
   const randomize = () => {
     setIsAnimating(true);
-    
     let result: string;
     if (currentView === 'makan') {
       const foodList = selectedCategory === 'semua' ? getAllFood() : foodData[selectedCategory];
@@ -117,7 +43,6 @@ const MakanApaHariNi = () => {
     } else {
       result = getWeightedRandom(placeData);
     }
-
     setTimeout(() => {
       setSelectedItem(result);
       setLikeCount(getRandomFakeNumber());
@@ -126,22 +51,17 @@ const MakanApaHariNi = () => {
     }, 400);
   };
 
-  const handleLike = () => {
-    setLikeCount(prev => prev + 1);
-  };
-
+  const handleLike = () => setLikeCount(prev => prev + 1);
   const switchView = (view: string) => {
     setCurrentView(view);
     setSelectedItem(null);
     setSelectedCategory('semua');
     setMenuOpen(false);
   };
-
   const selectCategory = (catId: string) => {
     setSelectedCategory(catId);
     setMenuOpen(false);
   };
-
   const getViewTitle = (): string => {
     if (currentView === 'makan') return 'Makan Apa Hari Ni?';
     if (currentView === 'minum') return 'Minum Apa Hari Ni?';
@@ -159,18 +79,15 @@ const MakanApaHariNi = () => {
     <div className="min-h-screen bg-white flex flex-col">
       <div className="flex-1 flex items-center justify-center p-4 relative">
         
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="fixed top-6 right-6 p-3 hover:bg-gray-100 rounded-lg transition-all z-30"
-        >
-          {menuOpen ? <X size={28} /> : <Menu size={28} />}
+        <button onClick={() => setMenuOpen(!menuOpen)} className="fixed top-6 right-6 p-3 hover:bg-gray-100 rounded-lg transition-all z-30 text-2xl">
+          {menuOpen ? '✕' : '☰'}
         </button>
 
         <div className={`fixed top-0 right-0 h-full w-72 bg-white shadow-2xl transform transition-transform duration-300 z-50 overflow-y-auto ${menuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
           <div className="p-6">
             <div className="flex justify-between items-center mb-8">
               <h3 className="text-xl font-bold">MENU</h3>
-              <button onClick={() => setMenuOpen(false)}><X size={24} /></button>
+              <button onClick={() => setMenuOpen(false)} className="text-2xl">✕</button>
             </div>
 
             <div className="mb-6">
@@ -208,9 +125,7 @@ const MakanApaHariNi = () => {
           {selectedItem ? (
             <div className={`mb-8 transition-all duration-300 ${isAnimating ? 'scale-95 opacity-50' : 'scale-100 opacity-100'}`}>
               <div className="bg-gradient-to-br from-orange-50 to-red-50 p-8 rounded-3xl shadow-lg mb-6">
-                <div className="text-7xl mb-4">
-                  {currentView === 'makan' ? '🍽️' : currentView === 'minum' ? '🥤' : '📍'}
-                </div>
+                <div className="text-7xl mb-4">{currentView === 'makan' ? '🍽️' : currentView === 'minum' ? '🥤' : '📍'}</div>
                 <h2 className="text-2xl font-bold text-gray-900 leading-tight">{selectedItem}</h2>
               </div>
 
@@ -220,17 +135,17 @@ const MakanApaHariNi = () => {
 
               <div className="space-y-3">
                 <button onClick={handleLike} className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-3 transition-all">
-                  <ThumbsUp size={20} />
+                  <span className="text-xl">👍</span>
                   <span>SUKA!</span>
                 </button>
 
                 <div className="grid grid-cols-2 gap-3">
                   <button onClick={randomize} className="bg-red-500 hover:bg-red-600 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 transition-all">
-                    <ThumbsDown size={18} />
+                    <span className="text-xl">👎</span>
                     <span>Tak Nak</span>
                   </button>
                   <button onClick={randomize} disabled={isAnimating} className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 transition-all">
-                    <RefreshCw size={18} className={isAnimating ? 'animate-spin' : ''} />
+                    <span className={`text-xl ${isAnimating ? 'animate-spin inline-block' : ''}`}>🔄</span>
                     <span>Cuba Lagi</span>
                   </button>
                 </div>
@@ -239,7 +154,7 @@ const MakanApaHariNi = () => {
           ) : (
             <div className="mt-12">
               <button onClick={randomize} disabled={isAnimating} className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-6 px-8 rounded-2xl text-xl transition-all transform hover:scale-105 active:scale-95 disabled:opacity-50 flex items-center justify-center gap-3 shadow-lg">
-                <RefreshCw size={28} className={isAnimating ? 'animate-spin' : ''} />
+                <span className={`text-3xl ${isAnimating ? 'animate-spin inline-block' : ''}`}>🔄</span>
                 <span>Randomize!</span>
               </button>
               <p className="text-gray-400 text-sm mt-4">Tekan untuk suggestion!</p>
