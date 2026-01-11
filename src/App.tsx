@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { RefreshCw, Menu, X, ThumbsUp, ThumbsDown } from 'lucide-react';
 
 const MakanApaHariNi = () => {
-  const [selectedItem, setSelectedItem] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState('semua');
-  const [currentView, setCurrentView] = useState('makan');
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [likeCount, setLikeCount] = useState(0);
-  const [recentlyShown, setRecentlyShown] = useState([]);
+  const [selectedItem, setSelectedItem] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string>('semua');
+  const [currentView, setCurrentView] = useState<string>('makan');
+  const [isAnimating, setIsAnimating] = useState<boolean>(false);
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const [likeCount, setLikeCount] = useState<number>(0);
+  const [recentlyShown, setRecentlyShown] = useState<string[]>([]);
 
-  const foodData = {
+  const foodData: Record<string, string[]> = {
     tomyam: [
       "Tom Yam Campur",
       "Nasi Goreng Paprik",
@@ -55,7 +55,7 @@ const MakanApaHariNi = () => {
     ]
   };
 
-  const drinkData = [
+  const drinkData: string[] = [
     "Teh Tarik",
     "Teh O Ais Limau",
     "Kopi O",
@@ -72,7 +72,7 @@ const MakanApaHariNi = () => {
     "Ribena Ais"
   ];
 
-  const placeData = [
+  const placeData: string[] = [
     "Kedai Mamak",
     "Kedai Tomyam",
     "KFC",
@@ -90,16 +90,16 @@ const MakanApaHariNi = () => {
     "Marrybrown"
   ];
 
-  const getRandomFakeNumber = () => {
+  const getRandomFakeNumber = (): number => {
     const numbers = [234, 411, 456, 512, 578, 649, 666, 678, 723, 801];
     return numbers[Math.floor(Math.random() * numbers.length)];
   };
 
-  const getAllFood = () => {
+  const getAllFood = (): string[] => {
     return [...foodData.tomyam, ...foodData.mamak, ...foodData.random];
   };
 
-  const getWeightedRandom = (items) => {
+  const getWeightedRandom = (items: string[]): string => {
     const availableItems = items.filter(item => !recentlyShown.includes(item));
     const itemsToUse = availableItems.length > 0 ? availableItems : items;
     return itemsToUse[Math.floor(Math.random() * itemsToUse.length)];
@@ -108,9 +108,9 @@ const MakanApaHariNi = () => {
   const randomize = () => {
     setIsAnimating(true);
     
-    let result;
+    let result: string;
     if (currentView === 'makan') {
-      let foodList = selectedCategory === 'semua' ? getAllFood() : foodData[selectedCategory];
+      const foodList = selectedCategory === 'semua' ? getAllFood() : foodData[selectedCategory];
       result = getWeightedRandom(foodList);
     } else if (currentView === 'minum') {
       result = getWeightedRandom(drinkData);
@@ -130,19 +130,19 @@ const MakanApaHariNi = () => {
     setLikeCount(prev => prev + 1);
   };
 
-  const switchView = (view) => {
+  const switchView = (view: string) => {
     setCurrentView(view);
     setSelectedItem(null);
     setSelectedCategory('semua');
     setMenuOpen(false);
   };
 
-  const selectCategory = (catId) => {
+  const selectCategory = (catId: string) => {
     setSelectedCategory(catId);
     setMenuOpen(false);
   };
 
-  const getViewTitle = () => {
+  const getViewTitle = (): string => {
     if (currentView === 'makan') return 'Makan Apa Hari Ni?';
     if (currentView === 'minum') return 'Minum Apa Hari Ni?';
     return 'Makan Mana Hari Ni?';
